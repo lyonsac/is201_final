@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snack Attack: ACC 310 Adventure</title>
+  <style>
+    .anchor-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #3949ab;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.anchor-button:hover {
+  background-color: #303f9f;
+}
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #fefefe;
+      color: #1a237e;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #3949ab;
+    }
+
+    .game-box {
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: #e3f2fd;
+    }
+
+    .choices button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3949ab;
+      color: white;
+      cursor: pointer;
+    }
+
+    .choices button:hover {
+      background-color: #303f9f;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Snack Attack: The ACC 310 Adventure</h1>
+  <div class="game-box">
+    <p id="message">You're in ACC 310... what's your first move?</p>
+    <div class="choices" id="choices">
+      <button onclick="makeChoice(0)">Option A</button>
+      <button onclick="makeChoice(1)">Option B</button>
+      <button onclick="makeChoice(2)">Option C</button>
+    </div>
+    <p id="score">Score: 0</p>
+    <p id="round">Round: 1</p>
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <script>
+    const rounds = [
+      {
+        question: "Eli starts telling a joke during class. What do you do?",
+        options: [
+          { text: "Laugh loudly and disrupt class", points: 2 },
+          { text: "Politely chuckle", points: 1 },
+          { text: "Ignore him and do accounting", points: 0 }
+        ]
+      },
+      {
+        question: "Jlat pulls out snacks. What do you grab?",
+        options: [
+          { text: "Fruit snacks & Diet Coke", points: 2 },
+          { text: "A granola bar", points: 1 },
+          { text: "Nothing, I’m disciplined", points: 0 }
+        ]
+      },
+      {
+        question: "Alex has news. What’s the move?",
+        options: [
+          { text: "Listen up—it’s always fire", points: 2 },
+          { text: "Pretend to listen", points: 1 },
+          { text: "Zone out", points: 0 }
+        ]
+      },
+      {
+        question: "Pop accounting quiz! You...",
+        options: [
+          { text: "Panic and eat snacks", points: 0 },
+          { text: "Guess using vibe-based math", points: 1 },
+          { text: "Use Eli’s notes", points: 2 }
+        ]
+      },
+      {
+        question: "Final moment: What earns you bonus points?",
+        options: [
+          { text: "Bringing extra snacks for the squad", points: 2 },
+          { text: "Helping Jlat debug his site", points: 2 },
+          { text: "Finishing your worksheet early", points: 1 }
+        ]
+      }
+    ];
+
+    let currentRound = 0;
+    let totalScore = 0;
+
+    const messageEl = document.getElementById("message");
+    const choicesEl = document.getElementById("choices");
+    const scoreEl = document.getElementById("score");
+    const roundEl = document.getElementById("round");
+
+    function startGame() {
+      currentRound = 0;
+      totalScore = 0;
+      scoreEl.textContent = "Score: 0";
+      roundEl.textContent = "Round: 1";
+      document.querySelector("button[onclick='startGame()']").style.display = "none";
+      showRound();
+    }
+
+    function showRound() {
+      const round = rounds[currentRound];
+      messageEl.textContent = round.question;
+      const buttons = choicesEl.querySelectorAll("button");
+      buttons.forEach((btn, i) => {
+        btn.textContent = round.options[i].text;
+      });
+    }
+
+    function makeChoice(index) {
+      const round = rounds[currentRound];
+      totalScore += round.options[index].points;
+      currentRound++;
+      scoreEl.textContent = "Score: " + totalScore;
+      roundEl.textContent = "Round: " + (currentRound + 1);
+
+      if (currentRound < rounds.length) {
+        showRound();
+      } else {
+        endGame();
+      }
+    }
+
+    function endGame() {
+      messageEl.textContent = totalScore >= 8
+        ? "You survived ACC 310 with snacks, laughs, and good vibes. You're a legend!"
+        : "You barely made it through. Maybe bring more snacks next time.";
+      choicesEl.innerHTML = "";
+      document.querySelector("button[onclick='startGame()']").style.display = "inline-block";
+      roundEl.textContent = "Game Over";
+    }
+  </script>
+
+<br>
+<a href="scratch.html" class="anchor-button">← Back to Scratch Page</a>
+
+</body>
+</html>

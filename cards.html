@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Dev Flashcards</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .question {
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .answer {
+      display: none;
+      margin-top: 10px;
+    }
+    .card:hover .answer {
+      display: block;
+    }
+    .inline { border-left: 6px solid #4caf50; }
+    .block { border-left: 6px solid #2196f3; }
+    .void { border-left: 6px solid #ff9800; }
+    .meta { border-left: 6px solid #9c27b0; }
+    .ignored { border-left: 6px solid #9e9e9e; }
+    .concept { border-left: 6px solid #00bcd4; }
+    .css { border-left: 6px solid #607d8b; }
+    .box { border-left: 6px solid #795548; }
+
+    .filter-controls {
+      margin-bottom: 20px;
+    }
+    .filter-controls button {
+      margin-right: 10px;
+      padding: 6px 12px;
+      border: none;
+      background-color: #eee;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .filter-controls button:hover {
+      background-color: #ddd;
+    }
+    #searchInput {
+      padding: 6px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 400px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .quiz .answer {
+      display: none !important;
+    }
+    .quiz input {
+      margin-top: 10px;
+      display: block;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .quiz-mode-toggle {
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    let quizMode = false;
+
+    function filterCards(type) {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        if (type === 'all') {
+          card.style.display = 'block';
+        } else {
+          card.style.display = card.classList.contains(type) ? 'block' : 'none';
+        }
+      });
+    }
+
+    function toggleQuizMode() {
+      quizMode = !quizMode;
+      const container = document.getElementById('cardContainer');
+      if (quizMode) {
+        container.classList.add('quiz');
+      } else {
+        container.classList.remove('quiz');
+      }
+    }
+
+    function searchCards() {
+      const term = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(term) ? 'block' : 'none';
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>HTML & CSS Study Flashcards</h1>
+
+  <div class="filter-controls">
+    <button onclick="filterCards('all')">Show All</button>
+    <button onclick="filterCards('block')">Block</button>
+    <button onclick="filterCards('inline')">Inline</button>
+    <button onclick="filterCards('void')">Void</button>
+    <button onclick="filterCards('meta')">Metadata</button>
+    <button onclick="filterCards('ignored')">Ignored</button>
+    <button onclick="filterCards('css')">CSS</button>
+    <button onclick="filterCards('concept')">Concepts</button>
+    <button onclick="filterCards('box')">Box Model</button>
+  </div>
+
+  <div class="quiz-mode-toggle">
+    <label><input type="checkbox" onclick="toggleQuizMode()"> Quiz Mode</label>
+  </div>
+
+  <input type="text" id="searchInput" onkeyup="searchCards()" placeholder="Search flashcards...">
+
+  <div id="cardContainer">
+
+    <!-- HTML Tags -->
+    <div class="card block"><div class="question">&lt;html&gt;</div><div class="answer">Root of the HTML document. (Block)</div></div>
+    <div class="card meta"><div class="question">&lt;head&gt;</div><div class="answer">Contains metadata, styles, and scripts. (Metadata)</div></div>
+    <div class="card meta"><div class="question">&lt;title&gt;</div><div class="answer">Sets the browser tab title. (Metadata)</div></div>
+    <div class="card block"><div class="question">&lt;body&gt;</div><div class="answer">Main content of the web page. (Block)</div></div>
+    <div class="card void"><div class="question">&lt;link&gt;</div><div class="answer">Links to external CSS files. (Void)</div></div>
+    <div class="card block"><div class="question">&lt;h1&gt; - &lt;h4&gt;</div><div class="answer">Heading levels. (Block)</div></div>
+    <div class="card block"><div class="question">&lt;ul&gt;</div><div class="answer">Unordered list. (Block)</div></div>
+    <div class="card block"><div class="question">&lt;ol&gt;</div><div class="answer">Ordered list. (Block)</div></div>
+    <div class="card block"><div class="question">&lt;li&gt;</div><div class="answer">List item. (Block)</div></div>
+    <div class="card void"><div class="question">&lt;br&gt;</div><div class="answer">Line break. (Void)</div></div>
+    <div class="card block"><div class="question">&lt;p&gt;</div><div class="answer">Paragraph of text. (Block)</div></div>
+    <div class="card inline"><div class="question">&lt;img&gt;</div><div class="answer">Displays an image. (Inline)</div></div>
+    <div class="card inline"><div class="question">&lt;a&gt;</div><div class="answer">Creates a hyperlink. (Inline)</div></div>
+    <div class="card block"><div class="question">&lt;div&gt;</div><div class="answer">Generic block container. (Block)</div></div>
+    <div class="card inline"><div class="question">&lt;iframe&gt;</div><div class="answer">Embeds another webpage. (Inline)</div></div>
+    <div class="card ignored"><div class="question">&lt;!-- comment --&gt;</div><div class="answer">HTML comment. (Ignored)</div></div>
+    <div class="card ignored"><div class="question">/* comment */</div><div class="answer">CSS comment. (Ignored)</div></div>
+
+    <!-- CSS Terms -->
+    <div class="card css"><div class="question">text-align</div><div class="answer">Aligns text horizontally (left, center, right, justify).</div></div>
+    <div class="card css"><div class="question">color</div><div class="answer">Sets the color of text.</div></div>
+    <div class="card css"><div class="question">font-weight</div><div class="answer">Controls boldness of text (normal, bold, 100–900).</div></div>
+    <div class="card css"><div class="question">font-style</div><div class="answer">Normal or italic styling.</div></div>
+    <div class="card css"><div class="question">font-family</div><div class="answer">Defines font stack (e.g., Arial, sans-serif).</div></div>
+    <div class="card css"><div class="question">text-decoration</div><div class="answer">Underline, overline, line-through, none.</div></div>
+    <div class="card css"><div class="question">position: absolute</div><div class="answer">Positions relative to the nearest positioned ancestor.</div></div>
+    <div class="card css"><div class="question">position: fixed</div><div class="answer">Fixed to viewport; stays on screen during scroll.</div></div>
+    <div class="card css"><div class="question">z-index</div><div class="answer">Controls stacking order of overlapping elements.</div></div>
+    <div class="card css"><div class="question">bottom</div><div class="answer">Distance from the bottom of the containing block.</div></div>
+    <div class="card css"><div class="question">float</div><div class="answer">Allows elements to float left or right.</div></div>
+
+    <!-- Box Model -->
+    <div class="card box"><div class="question">padding</div><div class="answer">Space between content and border.</div></div>
+    <div class="card box"><div class="question">margin</div><div class="answer">Space outside the border (external spacing).</div></div>
+    <div class="card box"><div class="question">border</div><div class="answer">Surrounds padding and content. Needs border-style to be visible.</div></div>
+    <div class="card box"><div class="question">background-image</div><div class="answer">Sets an image as background.</div></div>
+    <div class="card box"><div class="question">background-repeat</div><div class="answer">Controls if/how background image repeats.</div></div>
+    <div class="card box"><div class="question">background-position</div><div class="answer">Sets starting position of background image.</div></div>
+    <div class="card box"><div class="question">background-color</div><div class="answer">Sets background color of an element.</div></div>
+
+    <!-- Concepts -->
+    <div class="card concept"><div class="question">What is the current HTML standard?</div><div class="answer">HTML5. Not all pages follow it. Use a validator like https://validator.w3.org to check.</div></div>
+    <div class="card concept"><div class="question">Why is CSS necessary?</div><div class="answer">It separates content (HTML) from presentation (CSS), allowing more control and cleaner code.</div></div>
+    <div class="card concept"><div class="question">What does cascading mean in CSS?</div><div class="answer">It refers to how CSS rules apply in order of specificity and location (inline > internal > external).</div></div>
+    <div class="card concept"><div class="question">How do you link a CSS file?</div><div class="answer">Using &lt;link rel="stylesheet" href="styles.css"&gt; in the &lt;head&gt;.</div></div>
+    <div class="card concept"><div class="question">Inline vs Block Elements?</div><div class="answer">Inline doesn't break the flow; block takes full width and starts on a new line.</div></div>
+
+  </div>
+</body>
+</html>

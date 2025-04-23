@@ -1,0 +1,61 @@
+/* === General Reset and Body Styling === */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: #222;
+    background-color: #adebeb; /* ← uses your custom color */
+    line-height: 1.6;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+    
+    /* === Headings === */
+    h1, h2, h3 {
+        color: #1a237e;
+    }
+    
+    /* === Links === */
+    a {
+        color: #1976d2;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+    
+    /* === List Section Styling === */
+    .list-section {
+        background-color: #e3f2fd;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+    
+    /* === Div Blocks === */
+    .div-box {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* === Anchor Button === */
+    .anchor-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #3949ab;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+    }
+    
+    .anchor-button:hover {
+        background-color: #303f9f;
+    }
